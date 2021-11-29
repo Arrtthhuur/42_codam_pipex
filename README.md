@@ -48,10 +48,10 @@ Return:
 Suspends execution of the calling process until a child specified by ***pid*** argument has changed state. By default, waitpid() waits only for terminated children, but this behavior is modifiable via the options argument, as described below.
 
 Value of ***pid***:
-- < -1 : wait for any child process whose process group ID is equal to | value | of ***pid***
+- smaller than -1 : wait for any child process whose process group ID is equal to | value | of ***pid***
 - -1 : wait for any child process
 - 0 : wait for any child process whose process group ID is equal to that of the calling process
-- > 0 : wait for the child whose process ID is equal to the value of ***pid***
+- greater than 0 : wait for the child whose process ID is equal to the value of ***pid***
 
 ```bash
 #include <sys/types.h>

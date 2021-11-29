@@ -1,11 +1,15 @@
 # Pipex - 42 Codam project
 
-Summary: This project is the discovery in detail and by programming of a UNIX
+This project is the discovery in detail and by programming of a UNIX
 mechanism that you already know.
 
 ## Allowed functions
 
-- access
+### access
+
+check user's permission for a file.
+```include <unistd.h>```
+
 - open
 - unlink
 - close

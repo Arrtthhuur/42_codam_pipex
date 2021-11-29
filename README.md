@@ -147,6 +147,22 @@ Return:
 
 ### perror
 
+Print a system error message.
+
+```bash
+#include <stdio.h>
+
+void perror(const char *s);
+```
+
 ### strerror
+
+Return string describing error number.
+
+```bash
+#include <string.h>
+
+char *strerror(int errnum);
+```
 
 ### exit

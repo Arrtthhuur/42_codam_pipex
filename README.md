@@ -86,9 +86,9 @@ Return:
 
 Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. 
 
-pipefd[0] refers to the read end of the pipe.
+***pipefd[0]*** refers to the read end of the pipe.
 
-pipefd[1] refersnto the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the readnend of the pipe.
+***pipefd[1]*** refers to the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 
 ```bash
 #include <unistd.h>
@@ -119,7 +119,11 @@ Return:
 
 ### execve
 
-Executes the program referred to by ***pathname***.
+Executes the program referred to by ***pathname***. 
+
+***argv*** is an array of pointers to strings passed to the new program as its command-line arguments. 
+
+***envp*** is an array of pointers to strings, conventionally of the form key=value, which are passed as the environment of the new program.
 
 ```bash
 #include <unistd.h>

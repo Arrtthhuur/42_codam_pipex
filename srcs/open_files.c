@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/05 13:28:12 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/05 16:05:29 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/09 11:48:12 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@ static int	open_infile(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		error_exit(2, "Infile read fail\n");
+		error_exit(2, "Infile read fail");
 	return (fd);
 }
 
-static int	open_outfile(char *file)
-{
-	int	fd;
-}
+// static int	open_outfile(char *file)
+// {
+// 	fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	if (fd == ERROR)
+// 		exit_error(2, "Failure reading outfile");
+// 	return (fd);
+// }
 
-void	open_files(int fd1, char *file1, int fd2, char *file2)
+void	open_files(int fd[2], char *file1, char *file2)
 {
-	fd1 = open_infile(file1);
-	fd2 = open_outfile(file2);
+	fd[0] = open_infile(file1);
+	// fd[1] = open_outfile(file2);
 }

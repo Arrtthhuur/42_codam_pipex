@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:59:39 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/05 13:30:15 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/09 14:47:48 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,15 @@
 # define SUCCESS 0
 # define ERROR -1
 
-int		main(int argc, char **argv);
-void	open_files(int fd1, char *file1, int fd2, char *file2);
+typedef struct s_cmd
+{
+	char	*file;
+	char	**env_p;
+	char	**args;
+}	t_cmd;
+
+int		main(int argc, char **argv, char **envp);
+void	open_files(int fd[2], char *file1, char *file2);
 
 /*
 ** Util functions.
@@ -29,6 +36,10 @@ void	open_files(int fd1, char *file1, int fd2, char *file2);
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memcpy(void *dst, void *src, size_t n);
+char	*ft_strdup(const char *s1);
 
 /*
 ** Exit succes or error message.

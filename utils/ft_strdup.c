@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exit_message.c                                     :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/08 15:57:26 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/09 10:53:15 by abeznik       ########   odam.nl         */
+/*   Created: 2022/02/09 14:35:09 by abeznik       #+#    #+#                 */
+/*   Updated: 2022/02/09 14:35:38 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-#include <unistd.h> // write
-
-int	error_msg(char *msg)
+char	*ft_strdup(const char *s1)
 {
-	write(2, "Error\n", 7);
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	return (EXIT_FAILURE);
-}
+	char		*save;
+	size_t		i;
 
-int	success_msg(char *msg)
-{
-	write(2, "Success\n", 9);
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	return (EXIT_SUCCESS);
-}
-
-void	error_exit(int errnum, char *msg)
-{
-	write(2, "Error\n", 7);
-	write(2, msg, ft_strlen(msg));
-	write(2, "\n", 1);
-	exit(errnum);
+	save = (char *)malloc(ft_strlen(s1) + 1);
+	if (!save)
+		return (NULL);
+	i = 0;
+	while (*s1)
+	{
+		save[i] = *s1;
+		i++;
+		s1++;
+	}
+	save[i] = '\0';
+	return (save);
 }

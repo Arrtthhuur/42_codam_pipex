@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exit_message.c                                     :+:    :+:            */
+/*   ft_strncmp.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/08 15:57:26 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/09 10:53:15 by abeznik       ########   odam.nl         */
+/*   Created: 2022/02/09 11:52:43 by abeznik       #+#    #+#                 */
+/*   Updated: 2022/02/09 11:52:52 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-#include <unistd.h> // write
-
-int	error_msg(char *msg)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	write(2, "Error\n", 7);
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	return (EXIT_FAILURE);
-}
+	unsigned long	i;
 
-int	success_msg(char *msg)
-{
-	write(2, "Success\n", 9);
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	return (EXIT_SUCCESS);
-}
-
-void	error_exit(int errnum, char *msg)
-{
-	write(2, "Error\n", 7);
-	write(2, msg, ft_strlen(msg));
-	write(2, "\n", 1);
-	exit(errnum);
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (i < (n - 1) && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

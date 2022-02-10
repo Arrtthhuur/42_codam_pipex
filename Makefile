@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/09 14:36:27 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/10 15:09:50 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME		=	pipex
 
 SOURCES		=	main.c \
 				open_files.c \
+				get_command.c \
 
 SRC_DIR		=	srcs
 

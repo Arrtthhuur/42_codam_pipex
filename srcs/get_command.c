@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_path.c                                         :+:    :+:            */
+/*   get_command.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/10 15:09:04 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/11 15:49:21 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 #include <unistd.h> // access
 #include <stdio.h>
+
+// char	*path_join(char **envp, char *argv)
+// {
+	
+// }
 
 char	*path_access(char **env_p, char *argv)
 {
@@ -40,11 +45,12 @@ char	**path_split(char *path)
 
 	env_paths = ft_split(path + 5, ':');
 	if (!env_paths)
-		error_exit(6, "Split");
+		error_exit(4, "Split");
 	i = 0;
 	while (env_paths[i])
 	{
 		env_paths[i] = ft_strjoin(env_paths[i], "/");
+		// printf("%s\n", env_paths[i]);
 		if (!env_paths[i])
 			error_exit(4, "Strjoin split");
 		i++;
@@ -74,8 +80,8 @@ char	*get_cmd(t_cmd cmd, char **argv, char **envp)
 
 	if (access(argv[2], X_OK) == SUCCESS)
 	{
-		cmd.file = argv[2];
-		return (cmd.file);
+		cmd.path = argv[2];
+		return (cmd.path);
 	}
 	path_var = path_find(envp);
 	env_paths = path_split(path_var);

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/05 13:28:12 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/10 14:33:16 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/11 15:48:53 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static int	open_infile(char *file)
-{
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == ERROR)
-		error_exit(2, "Infile read fail");
-	return (fd);
-}
 
 static int	open_outfile(char *file)
 {
@@ -33,7 +24,17 @@ static int	open_outfile(char *file)
 
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == ERROR)
-		error_exit(2, "Failure reading outfile");
+		error_exit(3, "Failure reading outfile");
+	return (fd);
+}
+
+static int	open_infile(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == ERROR)
+		error_exit(2, "Infile read fail");
 	return (fd);
 }
 

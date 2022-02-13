@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   open_files.c                                       :+:    :+:            */
+/*   file_opener.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/05 13:28:12 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/11 15:48:53 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/12 15:56:06 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
 
 static int	open_outfile(char *file)
 {

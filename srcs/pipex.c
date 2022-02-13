@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/11 16:13:53 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/13 12:33:33 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 // 	// perror(cmd1[0]);
 // }
 
-// void	run_dest(t_cmd cmd, char **arg, char **envp, int fd)	/* run the second part of the pipeline, cmd2 */
+/* run the second part of the pipeline, cmd2 */
+// void	run_dest(t_cmd cmd, char **arg, char **envp, int fd)
 // {
 // 	char 	*wc[] = { "/usr/bin/wc", 0, 0 };
 
@@ -35,11 +36,10 @@
 // 	// perror(cmd2[0]);
 // }
 
-int	pipex(int fd1, int fd2, t_cmd cmds[2], char **envp)
+int	pipex(int fd[2], t_cmd *cmd1, t_cmd *cmd2, char **envp)
 {
 	int	pid1;
 	int	pid2;
-	int	fd[2];
 
 	if (pipe(fd) == ERROR)
 		error_exit(3, "Pipe fail");
@@ -47,10 +47,15 @@ int	pipex(int fd1, int fd2, t_cmd cmds[2], char **envp)
 	if (pid1 == ERROR)
 		error_exit(6, "Fork fail #1");
 	else if (pid1 == CHILD)
-		run_source();
+	{
+		// run_source();
+	}
 	pid2 = fork();
 	if (pid2 == ERROR)
 		error_exit(7, "Fork fail #2");
 	else if (pid2 == CHILD)
-		run_dest();
+	{
+		// run_dest();
+	}
+	return (0);
 }

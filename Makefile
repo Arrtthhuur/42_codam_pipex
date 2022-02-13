@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/11 16:01:11 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/13 12:42:18 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	pipex
 
 SOURCES		=	main.c \
 				open_files.c \
-				input_parser.c \
-				get_command.c \
+				find_path.c \
+				build_cmd.c \
 				pipex.c \
 
 SRC_DIR		=	srcs
@@ -65,6 +65,9 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
+test: re
+	./pipex infile "ls -l" "wc -l" outfile
+
 norm:
 	norminette srcs/ utils/ includes/
 
@@ -74,7 +77,7 @@ del: fclean
 
 debug:
 	gcc -g3 -o db.out $(SRCS) $(UTLS)
-	lldb db.out
+	lldb db.out -- infile /bin/ls wc outfile
 	
 re: fclean all
 

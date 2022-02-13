@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:56:51 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/11 18:10:34 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/13 15:53:59 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		fd[2];
-	t_cmd	cmds[2];
+	t_cmd	cmd1;
+	t_cmd	cmd2;
 
 	if (argc != 5)
 		error_exit(1, "Usage: ./pipex file1 cmd1 cmd2 file2");
 	open_files(fd, argv[1], argv[4]);
-	build_cmd(cmds[0], cmds[1], argv);
-	// pipex(fd[0], fd[1], cmds, envp);
+	build_cmd(&cmd1, &cmd2, argv[2], argv[3]);
+	get_path(&cmd1, &cmd2, argv, envp);
+	printf("cmd1: %s %s at %s\n", cmd1.args[0], cmd1.args[1], cmd1.path);
+	printf("cmd2: %s %s at %s\n", cmd2.args[0], cmd2.args[1], cmd2.path);
+	// pipex(fd, &cmd1, &cmd2, envp);
+	execve(cmd1.path, cmd1.args, envp);
 	return (0);
 }

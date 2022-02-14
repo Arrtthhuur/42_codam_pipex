@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/13 15:51:13 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/14 15:49:36 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ char	*path_build(t_cmd cmd, char **envp)
 	return (file_path);
 }
 
-void	get_path(t_cmd *cmd1, t_cmd *cmd2, char **argv, char **envp)
-{
-	cmd1->path = path_build(*cmd1, envp);
-	cmd2->path = path_build(*cmd2, envp);
-}
+// void	get_path(t_cmd *cmd1, t_cmd *cmd2, char **argv, char **envp)
+// {
+// 	cmd1->path = path_build(*cmd1, envp);
+// 	cmd2->path = path_build(*cmd2, envp);
+// }

@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/13 12:42:18 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/15 16:25:55 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,12 @@ test: re
 
 norm:
 	norminette srcs/ utils/ includes/
+
+git: fclean
+	git add *
+	git commit -m "Commited via make"
+	git push origin master
+	git push github master
 
 del: fclean
 	$(RM) *.out

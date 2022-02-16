@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/15 16:25:55 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/16 12:07:06 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,15 +65,28 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-test: re
-	./pipex infile "ls -l" "wc -l" outfile
+0: re
+	./pipex myinfile ls wc myoutfile
+	< infile ls | wc > outfile
+
+1: re
+	./pipex myinfile "ls -l" "wc -l" myoutfile
+	< infile ls -l | wc -l > outfile
+
+2: re
+	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
+	< infile ls | sed 's/infile/YES/g' > outfile
+
+3: re
+	./pipex myinfile "grep a1" "wc -w" myoutfile
+	< infile grep a1 | wc -w > outfile
 
 norm:
 	norminette srcs/ utils/ includes/
 
 git: fclean
 	git add *
-	git commit -m "Commited via make"
+	git commit -m "Committed via make"
 	git push origin master
 	git push github master
 

@@ -6,11 +6,26 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/13 15:50:34 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/16 12:43:46 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+#include <stdio.h> // printf
+
+void	print_args(t_cmd cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd.args[i])
+	{
+		printf("%s ", cmd.args[i]);
+		i++;
+	}
+	printf("\n");
+}
 
 void	get_cmd(char **path, char *arg)
 {
@@ -35,8 +50,10 @@ t_cmd	param_split(char *arg)
 	return (cmd);
 }
 
-void	build_cmd(t_cmd *cmd_1, t_cmd *cmd_2, char *arg_1, char *arg_2)
+void	build_cmd(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2)
 {
-	*cmd_1 = param_split(arg_1);
-	*cmd_2 = param_split(arg_2);
+	*cmd1 = param_split(arg1);
+	*cmd2 = param_split(arg2);
+	print_args(*cmd1);
+	print_args(*cmd2);
 }

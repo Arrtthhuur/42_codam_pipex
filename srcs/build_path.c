@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   find_path.c                                        :+:    :+:            */
+/*   build_path.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/16 12:43:40 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/19 12:54:56 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <unistd.h> // access
 
-char	*path_access(char **env_p, char *argv)
+static char	*path_access(char **env_p, char *argv)
 {
 	char	*tmp;
 	int		i;
@@ -24,7 +24,7 @@ char	*path_access(char **env_p, char *argv)
 	{
 		tmp = ft_strjoin(env_p[i], argv);
 		if (!tmp)
-			error_exit(6, "Strjoin access");
+			error_exit(5, "ft_strjoin");
 		if (access(tmp, X_OK) == SUCCESS)
 			return (tmp);
 		i++;
@@ -32,26 +32,26 @@ char	*path_access(char **env_p, char *argv)
 	return (NULL);
 }
 
-char	**path_split(char *path)
+static char	**path_split(char *path)
 {
 	char	**env_paths;
 	int		i;
 
 	env_paths = ft_split(path + 5, ':');
 	if (!env_paths)
-		error_exit(4, "Split");
+		error_exit(3, "ft_split");
 	i = 0;
 	while (env_paths[i])
 	{
 		env_paths[i] = ft_strjoin(env_paths[i], "/");
 		if (!env_paths[i])
-			error_exit(5, "Strjoin split");
+			error_exit(5, "ft_strjoin");
 		i++;
 	}
 	return (env_paths);
 }
 
-char	*path_find(char **envp)
+static char	*path_find(char **envp)
 {
 	int	i;
 
@@ -65,7 +65,7 @@ char	*path_find(char **envp)
 	return (NULL);
 }
 
-char	*path_build(t_cmd cmd, char **envp)
+char	*path_builder(t_cmd cmd, char **envp)
 {
 	char	*path_var;
 	char	**env_paths;

@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/16 12:07:06 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/19 12:56:25 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	pipex
 
 SOURCES		=	main.c \
 				open_files.c \
-				find_path.c \
-				build_cmd.c \
+				parse_input.c \
+				build_path.c \
 				pipex.c \
 
 SRC_DIR		=	srcs
@@ -66,20 +66,28 @@ fclean: clean
 	$(RM) $(NAME)
 
 0: re
-	./pipex myinfile ls wc myoutfile
 	< infile ls | wc > outfile
+	./pipex myinfile ls wc myoutfile
 
 1: re
-	./pipex myinfile "ls -l" "wc -l" myoutfile
 	< infile ls -l | wc -l > outfile
+	./pipex myinfile "ls -l" "wc -l" myoutfile
 
 2: re
-	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
 	< infile ls | sed 's/infile/YES/g' > outfile
+	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
 
 3: re
-	./pipex myinfile "grep a1" "wc -w" myoutfile
 	< infile grep a1 | wc -w > outfile
+	./pipex myinfile "grep a1" "wc -w" myoutfile
+
+4: re
+	< infile /bin/ls | wc -w > outfile
+	./pipex myinfile "/bin/ls" "wc -w" myoutfile
+
+5: re
+	< infile /bin/ls -l | wc -w > outfile
+	./pipex myinfile "/bin/ls -l" "wc -w" myoutfile
 
 norm:
 	norminette srcs/ utils/ includes/
@@ -96,7 +104,8 @@ del: fclean
 
 debug:
 	gcc -g3 -o db.out $(SRCS) $(UTLS)
-	lldb db.out -- infile /bin/ls wc outfile
+	# lldb db.out -- infile /bin/ls wc outfile
+	lldb db.out -- infile /bin/ls "sed 's/infile/YES/g'" outfile
 	
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:59:39 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/14 15:38:54 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/19 13:05:35 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 
 typedef struct s_cmd
 {
+	char	*cmd;
 	char	*path;
 	char	**args;
 }	t_cmd;
 
 int		main(int argc, char **argv, char **envp);
-void	open_files(int fd[2], char *file1, char *file2);
-void	get_path(t_cmd *cmd1, t_cmd *cmd2, char **argv, char **envp);
-char	*path_build(t_cmd cmd, char **envp);
-void	build_cmd(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2);
+void	files_open(int fd[2], char *file1, char *file2);
+char	*path_builder(t_cmd cmd, char **envp);
+void	input_parser(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2);
 void	pipex(int fd[2], t_cmd *cmd1, t_cmd *cmd2, char **envp);
 
 /*

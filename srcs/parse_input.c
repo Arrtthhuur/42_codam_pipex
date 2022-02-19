@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   build_cmd.c                                        :+:    :+:            */
+/*   parse_input.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/16 12:43:46 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/19 13:07:45 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdio.h> // printf
 
-void	print_args(t_cmd cmd)
+void	args_print(t_cmd cmd)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ void	print_args(t_cmd cmd)
 	printf("\n");
 }
 
-void	get_cmd(char **path, char *arg)
+static void	cmd_get(char **path, char *arg)
 {
 	int	i;
 
@@ -36,24 +36,48 @@ void	get_cmd(char **path, char *arg)
 		i++;
 	*path = ft_substr(arg, 0, i);
 	if (!*path)
-		error_exit(3, "Substring failure");
+		error_exit(4, "ft_substr");
 }
 
-t_cmd	param_split(char *arg)
+static void	param_clean(char **args)
+{
+	int	i;
+	int	x;
+
+	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == 39)
+		{
+			x = 1;
+			while (args[i][x] != 39)
+				x++;
+			args[i] = ft_substr(args[i], 1, x - 1);
+			if (!args[i])
+				error_exit(4, "ft_substr");
+		}
+		i++;
+	}
+}
+
+static t_cmd	param_split(char *arg)
 {
 	t_cmd	cmd;
 
-	get_cmd(&cmd.path, arg);
+	cmd.cmd = NULL;
+	cmd.path = NULL;
+	cmd.args = NULL;
+	cmd_get(&cmd.path, arg);
 	cmd.args = ft_split(arg, ' ');
 	if (!cmd.args)
-		error_exit(4, "Split failure");
+		error_exit(3, "ft_split");
+	param_clean(cmd.args);
+	// args_print(cmd);
 	return (cmd);
 }
 
-void	build_cmd(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2)
+void	input_parser(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2)
 {
 	*cmd1 = param_split(arg1);
 	*cmd2 = param_split(arg2);
-	print_args(*cmd1);
-	print_args(*cmd2);
 }

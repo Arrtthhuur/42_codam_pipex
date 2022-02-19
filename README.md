@@ -13,4 +13,4 @@ mechanism that you already know.
 
 ![image](https://user-images.githubusercontent.com/43698378/154800249-09b21d14-d9b5-4803-9faf-0b76131a3a96.png)
 
-![image](https://user-images.githubusercontent.com/43698378/154800293-861bca9e-db17-43e9-869a-24041a32e2b9.png)
+![image](https://user-images.githubusercontent.com/43698378/154806058-d1e3632b-38e0-4afe-a1c5-c1b0901ef38a.png)

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/19 13:07:00 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/02/19 15:28:10 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 static void	cmd_exec(t_cmd cmd, char **envp)
 {
-	char	*full_cmd;
-
-	cmd.cmd = path_builder(cmd, envp);
+	cmd.cmd = path_build(cmd, envp);
+	printf("cmd.cmd = %s\n", cmd.cmd); // remove for eval
 	if (!cmd.cmd)
 		return (error_exit(5, "command not found"));
 	if (execve(cmd.cmd, cmd.args, envp) == ERROR)

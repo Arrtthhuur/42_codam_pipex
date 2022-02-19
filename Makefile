@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/19 12:56:25 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/19 14:12:34 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=	pipex
 SOURCES		=	main.c \
 				open_files.c \
 				parse_input.c \
+				get_cmd.c \
 				build_path.c \
 				pipex.c \
 
@@ -42,7 +43,7 @@ UTLS		=	$(addprefix $(UTL_DIR)/,$(UTILS))
 OBJ_U 		=	$(patsubst %, $(OBJ_DIR)/utils/%, $(UTILS:.c=.o))
 
 CC			=	gcc
-# CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra
 RM			=	rm -f
 
 all:			$(NAME)

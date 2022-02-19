@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/19 14:12:34 by abeznik       ########   odam.nl          #
+#    Updated: 2022/02/19 15:58:36 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,9 +93,9 @@ fclean: clean
 norm:
 	norminette srcs/ utils/ includes/
 
-git: fclean
+git: del
 	git add *
-	git commit -m "Committed via make"
+	git commit -m "Quick commit via make"
 	git push origin master
 	git push github master
 

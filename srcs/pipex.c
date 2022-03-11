@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/11 14:11:58 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 14:39:01 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	parent(int pend[2], pid_t pid1, pid_t pid2)
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	if (WIFEXITED(status))
-		return (error_exit(WEXITSTATUS(status), "here command not found"));
+		return (error_exit(WEXITSTATUS(status), "command not found"));
 }
 
 /*

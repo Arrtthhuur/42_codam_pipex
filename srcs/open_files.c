@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/05 13:28:12 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/19 14:05:08 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 13:47:50 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+/*
+** Open output file.
+*/
 static int	outfile_open(char *file)
 {
 	int	fd;
@@ -27,6 +30,9 @@ static int	outfile_open(char *file)
 	return (fd);
 }
 
+/*
+** Open input file.
+*/
 static int	infile_open(char *file)
 {
 	int	fd;
@@ -37,6 +43,9 @@ static int	infile_open(char *file)
 	return (fd);
 }
 
+/*
+** Separate in and output.
+*/
 void	files_open(int fd[2], char *file1, char *file2)
 {
 	fd[0] = infile_open(file1);

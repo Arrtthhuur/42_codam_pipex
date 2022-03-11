@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/19 15:27:21 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 13:50:20 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 #include <unistd.h> // access
 
+/*
+** Test out all paths with access.
+*/
 static char	*path_access(char **env_p, char *path)
 {
 	char	*tmp;
@@ -32,6 +35,9 @@ static char	*path_access(char **env_p, char *path)
 	return (NULL);
 }
 
+/*
+** Split all paths env variable and add "/".
+*/
 static char	**path_split(char *path)
 {
 	char	**env_paths;
@@ -51,6 +57,9 @@ static char	**path_split(char *path)
 	return (env_paths);
 }
 
+/*
+** Find path environment variable.
+*/
 static char	*path_find(char **envp)
 {
 	int	i;
@@ -65,6 +74,9 @@ static char	*path_find(char **envp)
 	return (NULL);
 }
 
+/*
+** Build path of command.
+*/
 char	*path_build(t_cmd cmd, char **envp)
 {
 	char	*path_var;

@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/02/19 15:58:36 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/11 11:53:09 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,14 @@ fclean: clean
 	< infile /bin/ls -l | wc -w > outfile
 	./pipex myinfile "/bin/ls -l" "wc -w" myoutfile
 
+6: re
+	< infile grep codam | /bin/wc -l > outfile
+	./pipex myinfile "grep codam" "/bin/wc -l" myoutfile
+
+7: re
+	< infile      ls |         wc   > outfile
+	./pipex myinfile      "ls"          "wc"    myoutfile
+
 norm:
 	norminette srcs/ utils/ includes/
 
@@ -106,7 +114,8 @@ del: fclean
 debug:
 	gcc -g3 -o db.out $(SRCS) $(UTLS)
 	# lldb db.out -- infile /bin/ls wc outfile
-	lldb db.out -- infile /bin/ls "sed 's/infile/YES/g'" outfile
+	# lldb db.out -- infile /bin/ls "sed 's/infile/YES/g'" outfile
+	lldb db.out -- myinfile "grep codam" "/bin/wc -l" myoutfile
 	
 re: fclean all
 

@@ -6,14 +6,16 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/02/19 15:16:23 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 13:54:20 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-#include <stdio.h> // printf
-
+/*
+** Clean parameters with single quotes.
+** ex: sed 's/.../g'
+*/
 static void	param_clean(char **args)
 {
 	int	i;
@@ -35,6 +37,9 @@ static void	param_clean(char **args)
 	}
 }
 
+/*
+** Split parameters of the args.
+*/
 static t_cmd	param_split(char *arg)
 {
 	t_cmd	cmd;
@@ -44,10 +49,12 @@ static t_cmd	param_split(char *arg)
 	if (!cmd.args)
 		error_exit(3, "ft_split param");
 	param_clean(cmd.args);
-	args_print(cmd); // remove for eval
 	return (cmd);
 }
 
+/*
+** Separate cmd1 and cmd2.
+*/
 void	input_parse(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2)
 {
 	*cmd1 = param_split(arg1);

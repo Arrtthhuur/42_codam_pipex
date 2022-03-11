@@ -6,12 +6,15 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 14:07:13 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/11 12:22:40 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 15:10:32 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+/*
+** Get command path.
+*/
 void	cmd_get(t_cmd *cmd, char *arg)
 {
 	int	i;

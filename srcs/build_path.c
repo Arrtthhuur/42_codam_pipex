@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/11 13:50:20 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/11 15:09:15 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ static char	*path_find(char **envp)
 
 /*
 ** Build path of command.
+** Step 1: Test path with access
+** Step 2: Find PATH env variable
+** Step 3: Split paths in PATH and add trailing "/"
+** Step 4: Test different paths with access
 */
 char	*path_build(t_cmd cmd, char **envp)
 {

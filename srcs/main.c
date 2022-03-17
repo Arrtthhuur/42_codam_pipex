@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:56:51 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:34:48 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:52:15 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 		error_exit(1, "Usage: ./pipex file1 cmd1 cmd2 file2");
 	files_open(fd, argv[1], argv[4]);
 	input_parse(&cmd1, &cmd2, argv[2], argv[3]);
-	// pipex(fd, &cmd1, &cmd2, envp);
-	system("leaks pipex");
+	// system("leaks pipex");
 	return (pipex(fd, &cmd1, &cmd2, envp));
 }

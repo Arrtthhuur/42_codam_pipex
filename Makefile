@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/17 14:40:45 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/17 14:55:38 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,7 @@ fclean: clean
 
 9: re # cmd1 valid & cmd2 path invalid
 	./pipex myinfile ls /usr/wc myoutfile
+
 
 norm:
 	norminette srcs/ utils/ includes/

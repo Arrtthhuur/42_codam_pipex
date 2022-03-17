@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:59:39 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:40:58 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:48:32 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct s_cmd
 /*
 ** Main functions.
 */
+char	*path_build(t_cmd cmd, char **envp);
+void	cmd_get(t_cmd *cmd, char *arg);
 int		main(int argc, char **argv, char **envp);
 void	files_open(int fd[2], char *file1, char *file2);
 void	input_parse(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2);
-void	cmd_get(t_cmd *cmd, char *arg);
-char	*path_build(t_cmd cmd, char **envp);
 int		pipex(int fd[2], t_cmd *cmd1, t_cmd *cmd2, char **envp);
 
 /*
@@ -57,13 +57,13 @@ void	error_exit(int error_code, char *msg);
 /*
 ** Util functions.
 */
-size_t	ft_strlen(const char *s);
-char	**ft_split(char const *s, char c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_memcpy(void *dst, void *src, size_t n);
-char	*ft_strdup(const char *s1);
 void	free_split(char **split);
+void	*ft_memcpy(void *dst, void *src, size_t n);
+char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:39:42 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:55:46 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 #include <unistd.h>
 
-static void	print_cmd(t_cmd cmd)
-{
-	int	i;
+// static void	print_cmd(t_cmd cmd)
+// {
+// 	int	i;
 
-	i = 0;
-	write(2, "printing\n", 10);
-	while (cmd.args[i])
-	{
-		write(2, cmd.args[i], ft_strlen(cmd.args[i]));
-		write(2, "\n", 1);
-		i++;
-	}
-}
+// 	i = 0;
+// 	write(2, "printing\n", 10);
+// 	while (cmd.args[i])
+// 	{
+// 		write(2, cmd.args[i], ft_strlen(cmd.args[i]));
+// 		write(2, "\n", 1);
+// 		i++;
+// 	}
+// }
 
 /*
 ** Clean parameters with single quotes.
@@ -74,7 +74,7 @@ static t_cmd	param_split(char *arg)
 		error_exit(3, "ft_split param");
 	}
 	param_clean(cmd);
-	print_cmd(cmd);
+	// print_cmd(cmd);
 	return (cmd);
 }
 

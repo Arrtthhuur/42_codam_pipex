@@ -1,7 +1,5 @@
 Makefile
 README.md
-db.out
-db.out.dSYM
 includes
 YES
 myYES

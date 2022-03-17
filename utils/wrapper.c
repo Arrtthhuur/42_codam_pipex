@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/15 12:40:36 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:46:07 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:52:41 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 #include <stdio.h> // perror
 #include <unistd.h> // close
+
+/*
+** Wrapper functions.
+*/
 
 void	perror_wrap(char *msg)
 {

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:45:50 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:56:25 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ static int	parent(int pend[2], pid_t pid1, pid_t pid2)
 	close(pend[READ]);
 	close(pend[WRITE]);
 	waitpid(pid1, &status, 0);
-	printf("child1 status %d\n", status);
+	// printf("child1 status %d\n", status);
 	waitpid(pid2, &status, 0);
-	printf("child2 status %d\n", status);
+	// printf("child2 status %d\n", status);
 	if (WIFEXITED(status))
 	{
-		printf("WIFEXITED\n");
+		// printf("WIFEXITED\n");
 		return (WEXITSTATUS(status));
 	}
 	return (SUCCESS);

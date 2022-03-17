@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/11 15:09:15 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:38:08 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	*path_access(char **env_p, char *path)
 			error_exit(5, "ft_strjoin access");
 		if (access(tmp, X_OK) == SUCCESS)
 			return (tmp);
+		free(tmp);
 		i++;
 	}
 	return (NULL);
@@ -45,7 +46,10 @@ static char	**path_split(char *path)
 
 	env_paths = ft_split(path + 5, ':');
 	if (!env_paths)
+	{
+		free(env_paths);
 		error_exit(3, "ft_split path");
+	}
 	i = 0;
 	while (env_paths[i])
 	{
@@ -92,5 +96,6 @@ char	*path_build(t_cmd cmd, char **envp)
 	path_var = path_find(envp);
 	env_paths = path_split(path_var);
 	cmd_path = path_access(env_paths, cmd.path);
+	free_split(env_paths);
 	return (cmd_path);
 }

@@ -6,29 +6,31 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/11 11:53:09 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/17 14:40:45 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 
-SOURCES		=	main.c \
+SOURCES		=	build_path.c \
+				get_cmd.c \
+				main.c \
 				open_files.c \
 				parse_input.c \
-				get_cmd.c \
-				build_path.c \
 				pipex.c \
 
 SRC_DIR		=	srcs
 
 UTILS		=	exit_message.c \
+				free_split.c \
+				ft_memcpy.c \
+				ft_split.c \
+				ft_strdup.c \
+				ft_strjoin.c \
 				ft_strlen.c \
 				ft_strncmp.c \
-				ft_strjoin.c \
-				ft_split.c \
 				ft_substr.c \
-				ft_strdup.c \
-				ft_memcpy.c \
+				wrapper.c \
 
 UTL_DIR		=	utils
 
@@ -43,7 +45,7 @@ UTLS		=	$(addprefix $(UTL_DIR)/,$(UTILS))
 OBJ_U 		=	$(patsubst %, $(OBJ_DIR)/utils/%, $(UTILS:.c=.o))
 
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -g
 RM			=	rm -f
 
 all:			$(NAME)
@@ -66,19 +68,19 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-0: re
+0: re # cmd1 valid & cmd2 valid
 	< infile ls | wc > outfile
 	./pipex myinfile ls wc myoutfile
 
-1: re
+1: re # cmd1 valid & cmd2 valid
 	< infile ls -l | wc -l > outfile
 	./pipex myinfile "ls -l" "wc -l" myoutfile
 
-2: re
+2: re # cmd1 valid & cmd2 valid => potential leaks
 	< infile ls | sed 's/infile/YES/g' > outfile
 	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
 
-3: re
+3: re # cmd1 invalid param % cmd2 valid
 	< infile grep a1 | wc -w > outfile
 	./pipex myinfile "grep a1" "wc -w" myoutfile
 
@@ -90,13 +92,19 @@ fclean: clean
 	< infile /bin/ls -l | wc -w > outfile
 	./pipex myinfile "/bin/ls -l" "wc -w" myoutfile
 
-6: re
+6: re # cmd1 arg invalid & cmd2 path invalid
 	< infile grep codam | /bin/wc -l > outfile
 	./pipex myinfile "grep codam" "/bin/wc -l" myoutfile
 
 7: re
 	< infile      ls |         wc   > outfile
 	./pipex myinfile      "ls"          "wc"    myoutfile
+
+8: re
+	./pipex minfile ls wc myoutfile
+
+9: re # cmd1 valid & cmd2 path invalid
+	./pipex myinfile ls /usr/wc myoutfile
 
 norm:
 	norminette srcs/ utils/ includes/

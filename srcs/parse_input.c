@@ -6,32 +6,54 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/11 13:54:20 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/17 14:39:42 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+#include <unistd.h>
+
+static void	print_cmd(t_cmd cmd)
+{
+	int	i;
+
+	i = 0;
+	write(2, "printing\n", 10);
+	while (cmd.args[i])
+	{
+		write(2, cmd.args[i], ft_strlen(cmd.args[i]));
+		write(2, "\n", 1);
+		i++;
+	}
+}
+
 /*
 ** Clean parameters with single quotes.
 ** ex: sed 's/.../g'
 */
-static void	param_clean(char **args)
+static void	param_clean(t_cmd cmd)
 {
-	int	i;
-	int	x;
+	int		i;
+	int		x;
+	char	*tmp;
 
 	i = 0;
-	while (args[i])
+	while (cmd.args[i])
 	{
-		if (args[i][0] == 39)
+		if (cmd.args[i][0] == 39)
 		{
 			x = 1;
-			while (args[i][x] != 39)
+			while (cmd.args[i][x] != 39)
 				x++;
-			args[i] = ft_substr(args[i], 1, x - 1);
-			if (!args[i])
+			tmp = ft_substr(cmd.args[i], 1, x - 1);
+			if (!tmp)
+			{
+				free(tmp);
 				error_exit(4, "ft_substr clean");
+			}
+			free(cmd.args[i]);
+			cmd.args[i] = tmp;
 		}
 		i++;
 	}
@@ -47,8 +69,12 @@ static t_cmd	param_split(char *arg)
 	cmd_get(&cmd, arg);
 	cmd.args = ft_split(arg, ' ');
 	if (!cmd.args)
+	{
+		free_split(cmd.args);
 		error_exit(3, "ft_split param");
-	param_clean(cmd.args);
+	}
+	param_clean(cmd);
+	print_cmd(cmd);
 	return (cmd);
 }
 

@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_cmd.c                                          :+:    :+:            */
+/*   wrapper.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/19 14:07:13 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:03:09 by abeznik       ########   odam.nl         */
+/*   Created: 2022/03/15 12:40:36 by abeznik       #+#    #+#                 */
+/*   Updated: 2022/03/17 14:46:07 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-/*
-** Get command path.
-** Substr only the command, without the parameters.
-*/
-void	cmd_get(t_cmd *cmd, char *arg)
-{
-	int	i;
+#include <stdio.h> // perror
+#include <unistd.h> // close
 
-	cmd->cmd = NULL;
-	cmd->path = NULL;
-	cmd->args = NULL;
-	i = 0;
-	while (arg[i] != ' ')
-		i++;
-	cmd->path = ft_substr(arg, 0, i);
-	if (!cmd->path)
+void	perror_wrap(char *msg)
+{
+	perror(msg);
+	exit(FAILURE);
+}
+
+void	dup2_wrap(int fd1, int fd2)
+{
+	perror("dup2 error");
+	close(fd1);
+	close(fd2);
+	exit(FAILURE);
+}
+
+int	fork_wrap(void)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid < 0)
 	{
-		free(cmd->path);
-		error_exit(4, "ft_substr cmd");
+		perror("fork error");
+		return (FAILURE);
 	}
+	return (pid);
 }

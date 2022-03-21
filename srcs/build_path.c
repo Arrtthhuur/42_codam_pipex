@@ -6,13 +6,14 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:38:08 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/21 15:07:47 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 #include <unistd.h> // access
+#include <stdio.h>
 
 /*
 ** Test out all paths with access.

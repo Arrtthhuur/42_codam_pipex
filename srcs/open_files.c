@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/05 13:28:12 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/16 14:08:24 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/21 11:38:47 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static int	infile_open(char *file)
 /*
 ** Separate in and output.
 */
-void	files_open(int fd[2], char *file1, char *file2)
+void	files_open(int fd[2], char *infile, char *outfile)
 {
-	fd[0] = infile_open(file1);
-	fd[1] = outfile_open(file2);
+	fd[0] = infile_open(infile);
+	fd[1] = outfile_open(outfile);
 }

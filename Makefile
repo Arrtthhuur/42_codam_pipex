@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/17 14:55:38 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/21 15:45:13 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,15 +80,15 @@ fclean: clean
 	< infile ls | sed 's/infile/YES/g' > outfile
 	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
 
-3: re # cmd1 invalid param % cmd2 valid
+3: re # cmd1 invalid param & cmd2 valid
 	< infile grep a1 | wc -w > outfile
 	./pipex myinfile "grep a1" "wc -w" myoutfile
 
-4: re
+4: re # cmd1 valid & cmd2 valid
 	< infile /bin/ls | wc -w > outfile
 	./pipex myinfile "/bin/ls" "wc -w" myoutfile
 
-5: re
+5: re # cmd1 valid & cmd2 valid
 	< infile /bin/ls -l | wc -w > outfile
 	./pipex myinfile "/bin/ls -l" "wc -w" myoutfile
 
@@ -96,16 +96,39 @@ fclean: clean
 	< infile grep codam | /bin/wc -l > outfile
 	./pipex myinfile "grep codam" "/bin/wc -l" myoutfile
 
-7: re
+7: re # cmd1 valid & cmd2 valid
 	< infile      ls |         wc   > outfile
 	./pipex myinfile      "ls"          "wc"    myoutfile
 
-8: re
+8: re # invalid infile
+	< minfile ls | wc > outfile
 	./pipex minfile ls wc myoutfile
 
 9: re # cmd1 valid & cmd2 path invalid
+	< infile ls | /usr/wc > outfile
 	./pipex myinfile ls /usr/wc myoutfile
 
+10: re # invalid outfile
+	< infile ls | wc > utfile
+	./pipex myinfile ls wc youtfile
+
+11: re # invalid relative path cmd1
+	./pipex file_in "../../../../usr/bin/grep codam" "wc -l" /tmp/file_out
+	cat /tmp/file_out
+	< file_in ../../../../usr/bin/grep codam | wc -l > /tmp/file_out_bash
+	cat /tmp/bash_test
+
+12: re # valid relative path cmd1
+	./pipex file_in "../../../../../usr/bin/grep codam" "wc -l" "/tmp/file_out"
+	cat /tmp/file_out
+	< file_in ../../../../../usr/bin/grep codam | wc -l > /tmp/file_out_bash
+	cat /tmp/file_out_bash
+
+13: re # invalid relative path cmd2
+	./pipex file_in "grep codam" "../../../../usr/bin/wc -l" "/tmp/file_out"
+	cat /tmp/file_out
+	# < file_in grep codam | ../../../../usr/bin/wc -l > /tmp/file_out_bash
+	# cat /tmp/file_out_bash
 
 norm:
 	norminette srcs/ utils/ includes/

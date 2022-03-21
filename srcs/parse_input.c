@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 14:55:46 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/21 12:35:56 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	param_clean(t_cmd cmd)
 
 /*
 ** Split parameters of the args.
+** print_cmd(cmd);
 */
 static t_cmd	param_split(char *arg)
 {
@@ -74,7 +75,6 @@ static t_cmd	param_split(char *arg)
 		error_exit(3, "ft_split param");
 	}
 	param_clean(cmd);
-	// print_cmd(cmd);
 	return (cmd);
 }
 

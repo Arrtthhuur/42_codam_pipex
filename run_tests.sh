@@ -143,9 +143,9 @@ compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/
 
 # Test 9: Input file doesn't exist.
 echo "Test 9: Input file doesn't exist."
-run_bash "< ewa_broer grep contents | wc -l > /tmp/file_out_bash"
-run_pipex ewa_broer "grep contents" "wc -l" /tmp/file_out_yours
-compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+run_bash "< ewa_broer grep contents | wc -l > /tmp/file_out_bash_hello"
+run_pipex ewa_broer "grep contents" "wc -l" /tmp/file_out_yours_hello
+compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash_hello" "/tmp/file_out_yours_hello"
 
 # Test 10: command 1 doesn't exist.
 echo "Test 10: Command 1 doesn't exist."
@@ -232,9 +232,9 @@ compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/
 
 # Test 22: Incorrect relative path command 1
 echo "Test 22: Incorrect relative path command 1"
-run_bash "< $file_in ../../../../usr/bin/grep codam | wc -l > /tmp/file_out_bash"
-run_pipex "$file_in" "../../../../usr/bin/grep codam" "wc -l" "/tmp/file_out_yours"
-compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/tmp/file_out_yours"
+run_bash "< $file_in ../../../../usr/bin/grep codam | wc -l > /tmp/bash_test"
+run_pipex "$file_in" "../../../../usr/bin/grep codam" "wc -l" /tmp/test
+compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/bash_test" "/tmp/test"
 
 # Test 23: Correct relative path command 1
 echo "Test 23: Correct relative path command 1"

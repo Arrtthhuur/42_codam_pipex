@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/08 15:57:26 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 12:02:50 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/24 16:50:48 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	success_msg(char *msg)
 
 void	error_exit(int errnum, char *msg)
 {
-	write(2, "Error\n\t", 7);
+	write(2, "/pipex: ", 9);
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	exit(errnum);

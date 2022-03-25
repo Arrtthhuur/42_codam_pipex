@@ -6,27 +6,11 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/21 12:35:56 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/24 16:57:57 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-#include <unistd.h>
-
-// static void	print_cmd(t_cmd cmd)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	write(2, "printing\n", 10);
-// 	while (cmd.args[i])
-// 	{
-// 		write(2, cmd.args[i], ft_strlen(cmd.args[i]));
-// 		write(2, "\n", 1);
-// 		i++;
-// 	}
-// }
 
 /*
 ** Clean parameters with single quotes.
@@ -56,6 +40,28 @@ static void	param_clean(t_cmd cmd)
 			cmd.args[i] = tmp;
 		}
 		i++;
+	}
+}
+
+/*
+** Get command path.
+** Substr only the command, without the parameters.
+*/
+static void	cmd_get(t_cmd *cmd, char *arg)
+{
+	int	i;
+
+	cmd->cmd = NULL;
+	cmd->path = NULL;
+	cmd->args = NULL;
+	i = 0;
+	while (arg[i] != ' ')
+		i++;
+	cmd->path = ft_substr(arg, 0, i);
+	if (!cmd->path)
+	{
+		free(cmd->path);
+		error_exit(4, "ft_substr cmd");
 	}
 }
 

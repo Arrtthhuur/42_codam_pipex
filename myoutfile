@@ -1,5 +1,8 @@
 Makefile
 README.md
+db.out
+db.out.dSYM
+file_out
 includes
 YES
 myYES
@@ -9,4 +12,6 @@ outfile
 pipex
 run_tests.sh
 srcs
+utfile
 utils
+youtfile

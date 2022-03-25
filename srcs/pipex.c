@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/21 15:09:43 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/25 10:55:32 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #include <unistd.h> // fork
 #include <stdio.h> // perror
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#include <stdlib.h> // open
+#include <fcntl.h> // open
+#include <errno.h> // errno
+#include <string.h>
 
 /*
 ** Build path of given command and execute.
@@ -25,13 +25,10 @@
 static void	cmd_exec(t_cmd cmd, char **envp)
 {
 	cmd.cmd = path_build(cmd, envp);
-	write(2, cmd.cmd, ft_strlen(cmd.cmd));
-	write(2, "\n", 1);
-	// printf("cmd = %s", cmd.cmd);
 	if (!cmd.cmd)
-		error_exit(127, "command not found");
+		perror_wrap(127, cmd.path);
 	if (execve(cmd.cmd, cmd.args, envp) == FAILURE)
-		perror_wrap("execve error");
+		perror_wrap(127, cmd.path);
 	error_exit(127, "command execution fail");
 }
 
@@ -49,7 +46,7 @@ static void	child1(int pend[2], char **argv, t_cmd cmd, char **envp)
 
 	fd_in = open(argv[1], O_RDONLY);
 	if (fd_in == FAILURE)
-		perror_wrap("open infile error");
+		perror_wrap(1, argv[1]);
 	if (dup2(fd_in, STDIN_FILENO) == FAILURE)
 		dup2_wrap(fd_in, pend[WRITE]);
 	if (dup2(pend[WRITE], STDOUT_FILENO) == FAILURE)
@@ -61,29 +58,28 @@ static void	child1(int pend[2], char **argv, t_cmd cmd, char **envp)
 
 /*
 ** Redirect child2 and execute command.
-** 1st dup2: fd_out is the stdout.
-** 2nd dup2: pend[0] is the stdin.
+** 1st dup2: pend[0] is the stdin.
+** 2nd dup2: fd_out is the stdout.
 */
 static void	child2(int pend[2], char **argv, t_cmd cmd, char **envp)
 {
 	int	fd_out;
 
-	fd_out = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	fd_out = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_out == FAILURE)
-		perror_wrap("open outfile error");
+		perror_wrap(1, argv[4]);
 	if (dup2(pend[READ], STDIN_FILENO) == FAILURE)
 		dup2_wrap(fd_out, pend[READ]);
 	if (dup2(fd_out, STDOUT_FILENO) == FAILURE)
 		dup2_wrap(fd_out, pend[READ]);
-	close(fd_out);
 	close(pend[WRITE]);
+	close(fd_out);
 	cmd_exec(cmd, envp);
 }
 
 /*
 ** Close pipe and wait for both child processes to finish.
 ** Return exit status if one of the children exited normally.
-** printf("child2 status %d\n", status);
 */
 static int	parent(int pend[2], pid_t pid1, pid_t pid2)
 {
@@ -103,14 +99,12 @@ static int	parent(int pend[2], pid_t pid1, pid_t pid2)
 */
 int	pipex(char **argv, t_cmd *cmd1, t_cmd *cmd2, char **envp)
 {
-	// int		fd[2];
 	int		pend[2];
 	pid_t	pid1;
 	pid_t	pid2;
 
-	// files_open(fd, argv[1], argv[4]);
 	if (pipe(pend) == FAILURE)
-		perror_wrap("pipe error");
+		perror_wrap(1, "pipe");
 	pid1 = fork_wrap();
 	if (pid1 == CHILD)
 		child1(pend, argv, *cmd1, envp);

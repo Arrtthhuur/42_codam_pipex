@@ -6,14 +6,13 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/21 15:07:47 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/25 10:52:44 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 #include <unistd.h> // access
-#include <stdio.h>
 
 /*
 ** Test out all paths with access.
@@ -34,7 +33,7 @@ static char	*path_access(char **env_p, char *path)
 		free(tmp);
 		i++;
 	}
-	return (NULL);
+	return (path);
 }
 
 /*
@@ -56,7 +55,10 @@ static char	**path_split(char *path)
 	{
 		env_paths[i] = ft_strjoin(env_paths[i], "/");
 		if (!env_paths[i])
+		{
+			free(env_paths[i]);
 			error_exit(5, "ft_strjoin split");
+		}
 		i++;
 	}
 	return (env_paths);

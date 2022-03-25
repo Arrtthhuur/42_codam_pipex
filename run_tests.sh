@@ -233,7 +233,7 @@ compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/file_out_bash" "/
 # Test 22: Incorrect relative path command 1
 echo "Test 22: Incorrect relative path command 1"
 run_bash "< $file_in ../../../../usr/bin/grep codam | wc -l > /tmp/bash_test"
-run_pipex "$file_in" "../../../../usr/bin/grep codam" "wc -l" /tmp/test
+run_pipex "$file_in" "../../../../usr/bin/grep codam" "wc -l" "/tmp/test"
 compare_outputs "$exit_status_bash" "$exit_status_yours" "/tmp/bash_test" "/tmp/test"
 
 # Test 23: Correct relative path command 1

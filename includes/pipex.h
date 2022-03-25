@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:59:39 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/21 12:55:19 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/24 16:50:57 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,18 @@ typedef struct s_cmd
 ** Main functions.
 */
 char	*path_build(t_cmd cmd, char **envp);
-void	cmd_get(t_cmd *cmd, char *arg);
 int		main(int argc, char **argv, char **envp);
-void	files_open(int fd[2], char *file1, char *file2);
 void	input_parse(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2);
-// int		pipex(int fd[2], t_cmd *cmd1, t_cmd *cmd2, char **envp);
 int		pipex(char **argv, t_cmd *cmd1, t_cmd *cmd2, char **envp);
 
 /*
 ** wrapper.c
 */
-void	perror_wrap(char *msg);
+void	perror_wrap(int errnum, char *msg);
 void	dup2_wrap(int fd1, int fd2);
 int		fork_wrap(void);
-int		pipe_wrap(void);
+void	write_msg(char *msg);
+void	write_notif(char *notify, char *msg);
 
 /*
 ** exit_message.c
@@ -66,5 +64,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_intlen(long n);
 
 #endif

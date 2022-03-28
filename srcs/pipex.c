@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/25 10:55:32 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/28 12:32:06 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	cmd_exec(t_cmd cmd, char **envp)
 {
 	cmd.cmd = path_build(cmd, envp);
 	if (!cmd.cmd)
-		perror_wrap(127, cmd.path);
+		error_exit(127, "command not found");
 	if (execve(cmd.cmd, cmd.args, envp) == FAILURE)
 		perror_wrap(127, cmd.path);
 	error_exit(127, "command execution fail");
@@ -105,11 +105,15 @@ int	pipex(char **argv, t_cmd *cmd1, t_cmd *cmd2, char **envp)
 
 	if (pipe(pend) == FAILURE)
 		perror_wrap(1, "pipe");
-	pid1 = fork_wrap();
+	pid1 = fork();
 	if (pid1 == CHILD)
 		child1(pend, argv, *cmd1, envp);
-	pid2 = fork_wrap();
+	else if (pid1 < 0)
+		perror_wrap(1, "fork pid1");
+	pid2 = fork();
 	if (pid2 == CHILD)
 		child2(pend, argv, *cmd2, envp);
+	else if (pid2 < 0)
+		perror_wrap(1, "fork pid2");
 	return (parent(pend, pid1, pid2));
 }

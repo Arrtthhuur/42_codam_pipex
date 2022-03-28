@@ -6,12 +6,13 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/24 16:57:57 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/28 12:27:03 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
+#include <unistd.h>
+#include <stdio.h>
 /*
 ** Clean parameters with single quotes.
 ** ex: sed 's/.../g'
@@ -25,10 +26,10 @@ static void	param_clean(t_cmd cmd)
 	i = 0;
 	while (cmd.args[i])
 	{
-		if (cmd.args[i][0] == 39)
+		if (cmd.args[i][0] == '\'')
 		{
 			x = 1;
-			while (cmd.args[i][x] != 39)
+			while (cmd.args[i][x] != '\'' && cmd.args[i][x])
 				x++;
 			tmp = ft_substr(cmd.args[i], 1, x - 1);
 			if (!tmp)
@@ -55,13 +56,16 @@ static void	cmd_get(t_cmd *cmd, char *arg)
 	cmd->path = NULL;
 	cmd->args = NULL;
 	i = 0;
-	while (arg[i] != ' ')
+	while (arg[i] != ' ' && arg[i])
 		i++;
-	cmd->path = ft_substr(arg, 0, i);
-	if (!cmd->path)
+	if (i != 0)
 	{
-		free(cmd->path);
-		error_exit(4, "ft_substr cmd");
+		cmd->path = ft_substr(arg, 0, i);
+		if (!cmd->path)
+		{
+			free(cmd->path);
+			error_exit(4, "ft_substr cmd");
+		}
 	}
 }
 

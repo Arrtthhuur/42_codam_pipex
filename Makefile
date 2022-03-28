@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/25 10:48:32 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/28 12:32:00 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -147,6 +147,8 @@ subj: re # subject example
 
 15: re # invalid cmd2
 	./pipex myinfile "grep codam" "/bin/wc -l" myoutfile
+	< infile "grep codam" "/bin/wc -l" > outfile
+	make diff_bash
 
 16: re # empty cmd2
 	./pipex infile "ls -la" "" "/tmp/file_out"

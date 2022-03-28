@@ -6,13 +6,14 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/25 10:52:44 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/28 12:29:43 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 #include <unistd.h> // access
+#include <stdio.h> // perror
 
 /*
 ** Test out all paths with access.
@@ -87,6 +88,7 @@ static char	*path_find(char **envp)
 ** Step 2: Find PATH env variable
 ** Step 3: Split paths in PATH and add trailing "/"
 ** Step 4: Test different paths with access
+** ADD NULL PROTECTION
 */
 char	*path_build(t_cmd cmd, char **envp)
 {
@@ -94,9 +96,13 @@ char	*path_build(t_cmd cmd, char **envp)
 	char	**env_paths;
 	char	*cmd_path;
 
+	if (!ft_strlen(cmd.path))
+		return (NULL);
 	if (access(cmd.path, X_OK) == SUCCESS)
 		return (cmd.path);
 	path_var = path_find(envp);
+	if (!path_var)
+		return (NULL);
 	env_paths = path_split(path_var);
 	cmd_path = path_access(env_paths, cmd.path);
 	free_split(env_paths);

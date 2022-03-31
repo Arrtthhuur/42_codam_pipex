@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:47:47 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/31 12:57:26 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 15:21:40 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static char	**path_split(char *path)
 	while (env_paths[i])
 	{
 		tmp = ft_strjoin(env_paths[i], "/");
+		if (!tmp)
+			error_exit(5, "ft_strjoin split");
 		free(env_paths[i]);
 		env_paths[i] = tmp;
-		if (!env_paths[i])
-			error_exit(5, "ft_strjoin split");
 		i++;
 	}
 	return (env_paths);

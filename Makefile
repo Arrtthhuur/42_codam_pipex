@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/31 12:49:00 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/31 14:27:05 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ OBJ_S 		=	$(patsubst %, $(OBJ_DIR)/srcs/%, $(SOURCES:.c=.o))
 UTLS		=	$(addprefix $(UTL_DIR)/,$(UTILS))
 OBJ_U 		=	$(patsubst %, $(OBJ_DIR)/utils/%, $(UTILS:.c=.o))
 
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -g
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror -g
 RM			=	rm -f
 
 all:			$(NAME)

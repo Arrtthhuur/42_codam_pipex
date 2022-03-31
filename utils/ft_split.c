@@ -6,90 +6,79 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 09:15:26 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/24 16:52:46 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 12:57:51 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static char	**ft_free(int j, char **buff)
+static	int	count_pointers(char const *s, char c)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	while (j >= i)
+	while (*s)
 	{
-		free(buff[j]);
-		j--;
+		while (*s == c)
+			s++;
+		if (*s != c && *s)
+			i++;
+		while (*s != c && *s)
+			s++;
 	}
-	free(buff);
+	return (i);
+}
+
+static	char	**free_arrays(char **s, int i)
+{
+	while (i >= 0)
+	{
+		free(s[i]);
+		i--;
+	}
+	free(s);
 	return (NULL);
 }
 
-static int	ft_wordlength(int j, const char *s, char c)
+static	char	**fill_grid(char const *s, char c, char **ret, unsigned int i)
 {
-	int	i;
-	int	x;
+	unsigned int	j;
+	unsigned int	k;
 
-	i = 0;
-	while (j >= 0)
+	k = 0;
+	while (*s)
 	{
-		while ((s[i] == c) && (s[i] != '\0'))
-			i++;
-		x = i;
-		while ((s[i] != c) && (s[i] != '\0'))
-			i++;
-		j--;
-	}
-	return (i - x);
-}
-
-static int	ft_countwords(char const *s, char c, int x)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == c)
-			i++;
-		while (s[i] != c && s[i] != '\0')
+		j = 0;
+		while (*s == c)
+			s++;
+		while (s[j] != c && s[j] != '\0')
+			j++;
+		if (k < i)
 		{
-			if (x >= 0)
-			{
-				if (x == 0)
-					return (i);
-			}
-			i++;
+			ret[k] = ft_substr(s, 0, j);
+			if (!ret[k])
+				return (free_arrays(ret, k));
 		}
-		x--;
-		j++;
+		k++;
+		while (*s != c && *s)
+			s++;
 	}
-	if (s[i - 1] == c)
-		j--;
-	return (j);
+	return (ret);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**buff;
-	int		j;
+	char			**ret;
+	unsigned int	i;
 
-	if (s == NULL)
+	if (!s)
 		return (NULL);
-	buff = (char **)malloc(sizeof(char *) * (1 + ft_countwords(s, c, -1)));
-	if (buff == NULL)
+	i = count_pointers(s, c);
+	ret = ft_calloc(sizeof(char *), i + 1);
+	if (!ret)
 		return (NULL);
-	j = 0;
-	while (j < ft_countwords(s, c, -1))
-	{
-		buff[j] = ft_substr(s, ft_countwords(s, c, j), ft_wordlength(j, s, c));
-		if (buff[j] == NULL)
-			return (ft_free(j, buff));
-		j++;
-	}
-	buff[j] = NULL;
-	return (buff);
+	if (i == 0)
+		return (ret);
+	ret = fill_grid(s, c, ret, i);
+	return (ret);
 }

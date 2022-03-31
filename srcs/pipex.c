@@ -6,29 +6,25 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/11 15:45:07 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/28 12:32:06 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 12:57:42 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-#include <unistd.h> // fork
-#include <stdio.h> // perror
-#include <stdlib.h> // open
-#include <fcntl.h> // open
-#include <errno.h> // errno
-#include <string.h>
+#include <unistd.h> // fork, close, dup2, execve
+#include <fcntl.h> // open + flags
 
 /*
 ** Build path of given command and execute.
 */
 static void	cmd_exec(t_cmd cmd, char **envp)
 {
-	cmd.cmd = path_build(cmd, envp);
-	if (!cmd.cmd)
+	cmd.path = path_build(&cmd, envp);
+	if (!cmd.path)
 		error_exit(127, "command not found");
-	if (execve(cmd.cmd, cmd.args, envp) == FAILURE)
-		perror_wrap(127, cmd.path);
+	if (execve(cmd.path, cmd.args, envp) == FAILURE)
+		perror_wrap(127, cmd.cmd);
 	error_exit(127, "command execution fail");
 }
 
@@ -51,8 +47,9 @@ static void	child1(int pend[2], char **argv, t_cmd cmd, char **envp)
 		dup2_wrap(fd_in, pend[WRITE]);
 	if (dup2(pend[WRITE], STDOUT_FILENO) == FAILURE)
 		dup2_wrap(fd_in, pend[WRITE]);
-	close(fd_in);
 	close(pend[READ]);
+	close(pend[WRITE]);
+	close(fd_in);
 	cmd_exec(cmd, envp);
 }
 
@@ -73,6 +70,7 @@ static void	child2(int pend[2], char **argv, t_cmd cmd, char **envp)
 	if (dup2(fd_out, STDOUT_FILENO) == FAILURE)
 		dup2_wrap(fd_out, pend[READ]);
 	close(pend[WRITE]);
+	close(pend[READ]);
 	close(fd_out);
 	cmd_exec(cmd, envp);
 }

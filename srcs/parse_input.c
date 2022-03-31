@@ -6,13 +6,12 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/13 12:34:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/28 12:27:03 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 12:44:15 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include <unistd.h>
-#include <stdio.h>
+
 /*
 ** Clean parameters with single quotes.
 ** ex: sed 's/.../g'
@@ -33,10 +32,7 @@ static void	param_clean(t_cmd cmd)
 				x++;
 			tmp = ft_substr(cmd.args[i], 1, x - 1);
 			if (!tmp)
-			{
-				free(tmp);
 				error_exit(4, "ft_substr clean");
-			}
 			free(cmd.args[i]);
 			cmd.args[i] = tmp;
 		}
@@ -45,7 +41,7 @@ static void	param_clean(t_cmd cmd)
 }
 
 /*
-** Get command path.
+** Initialise struct.
 ** Substr only the command, without the parameters.
 */
 static void	cmd_get(t_cmd *cmd, char *arg)
@@ -58,20 +54,14 @@ static void	cmd_get(t_cmd *cmd, char *arg)
 	i = 0;
 	while (arg[i] != ' ' && arg[i])
 		i++;
-	if (i != 0)
-	{
-		cmd->path = ft_substr(arg, 0, i);
-		if (!cmd->path)
-		{
-			free(cmd->path);
-			error_exit(4, "ft_substr cmd");
-		}
-	}
+	cmd->cmd = ft_substr(arg, 0, i);
+	if (!cmd->cmd)
+		error_exit(4, "ft_substr cmd");
 }
 
 /*
+** Get given command.
 ** Split parameters of the args.
-** print_cmd(cmd);
 */
 static t_cmd	param_split(char *arg)
 {
@@ -80,10 +70,7 @@ static t_cmd	param_split(char *arg)
 	cmd_get(&cmd, arg);
 	cmd.args = ft_split(arg, ' ');
 	if (!cmd.args)
-	{
-		free_split(cmd.args);
 		error_exit(3, "ft_split param");
-	}
 	param_clean(cmd);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 11:09:35 by abeznik       #+#    #+#                  #
-#    Updated: 2022/03/28 12:32:00 by abeznik       ########   odam.nl          #
+#    Updated: 2022/03/31 12:49:00 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SOURCES		=	build_path.c \
 SRC_DIR		=	srcs
 
 UTILS		=	exit_message.c \
-				free_split.c \
+				ft_bzero.c \
+				ft_calloc.c \
 				ft_intlen.c \
 				ft_memcpy.c \
 				ft_split.c \
@@ -30,6 +31,7 @@ UTILS		=	exit_message.c \
 				ft_strncmp.c \
 				ft_substr.c \
 				wrapper.c \
+				free_grid.c \
 
 UTL_DIR		=	utils
 
@@ -44,7 +46,7 @@ UTLS		=	$(addprefix $(UTL_DIR)/,$(UTILS))
 OBJ_U 		=	$(patsubst %, $(OBJ_DIR)/utils/%, $(UTILS:.c=.o))
 
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g
+CFLAGS		=	-Wall -Wextra -g
 RM			=	rm -f
 
 all:			$(NAME)
@@ -83,8 +85,8 @@ subj: re # subject example
 	make diff_out
 
 2: re # cmd1 valid & cmd2 valid => potential leaks
-	< infile ls | sed 's/infile/YES/g' > outfile
-	./pipex myinfile ls "sed 's/infile/YES/g'" myoutfile
+	< Makefile ls -l | sed 's/infile/YES/g' > outfile
+	./pipex Makefile "ls -l" "sed 's/infile/YES/g'" myoutfile
 	make diff_out
 
 3: re # cmd1 invalid param & cmd2 valid
@@ -180,9 +182,10 @@ del: fclean
 debug:
 	gcc -g3 -o db.out $(SRCS) $(UTLS)
 	# lldb db.out -- infile /bin/ls wc outfile
+	lldb db.out -- myinfile "ls -l" "wc -l" myoutfile
 	# lldb db.out -- infile /bin/ls "sed 's/infile/YES/g'" outfile
 	# lldb db.out -- myinfile "grep codam" "/bin/wc -l" myoutfile
-	lldb db.out -- myinfile ls /usr/wc myoutfile
+	# lldb db.out -- myinfile ls /usr/wc myoutfile
 	
 re: fclean all
 

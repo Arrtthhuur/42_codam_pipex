@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/29 14:59:39 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/24 16:50:57 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 12:48:24 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_cmd
 /*
 ** Main functions.
 */
-char	*path_build(t_cmd cmd, char **envp);
+char	*path_build(t_cmd *cmd, char **envp);
 int		main(int argc, char **argv, char **envp);
 void	input_parse(t_cmd *cmd1, t_cmd *cmd2, char *arg1, char *arg2);
 int		pipex(char **argv, t_cmd *cmd1, t_cmd *cmd2, char **envp);
@@ -56,9 +56,11 @@ void	error_exit(int error_code, char *msg);
 /*
 ** Util functions.
 */
-void	free_split(char **split);
+void	free_grid(char **grid);
 void	*ft_memcpy(void *dst, void *src, size_t n);
 char	**ft_split(char const *s, char c);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);

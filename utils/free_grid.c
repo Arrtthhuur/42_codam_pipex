@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_split.c                                       :+:    :+:            */
+/*   free_grid.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/17 12:55:24 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/17 12:57:11 by abeznik       ########   odam.nl         */
+/*   Created: 2022/03/31 12:48:52 by abeznik       #+#    #+#                 */
+/*   Updated: 2022/03/31 12:51:57 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../includes/pipex.h"
 
-void	free_split(char **split)
+/*
+** Free double pointer array.
+*/
+void	free_grid(char **grid)
 {
 	int	i;
 
 	i = 0;
-	while (split[i])
+	while (grid[i])
 	{
-		free(split[i]);
+		free(grid[i]);
 		i++;
 	}
-	free(split);
+	free(grid);
 }

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/15 12:40:36 by abeznik       #+#    #+#                 */
-/*   Updated: 2022/03/24 16:42:45 by abeznik       ########   odam.nl         */
+/*   Updated: 2022/03/31 12:58:37 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,6 @@ void	dup2_wrap(int fd1, int fd2)
 	close(fd1);
 	close(fd2);
 	exit(FAILURE);
-}
-
-int	fork_wrap(void)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork");
-		return (FAILURE);
-	}
-	return (pid);
 }
 
 void	write_msg(char *msg)
